@@ -9,5 +9,5 @@
 ## Мои проекты
 
 - [Обучающий чат-бот](https://berlandbor.github.io/chat-with-bot/)
-- [Проект 2](ССЫЛКА_НА_ПРОЕКТ_2)
+- [Radio IL Kan Reka](https://berlandbor.github.io/Radio-Kan-Reka/)
 - [Проект 3](ССЫЛКА_НА_ПРОЕКТ_3)
