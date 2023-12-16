@@ -1,0 +1,39 @@
+/* styles.css */
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  
+  background: radial-gradient(circle, #fef69c, #000000);
+
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+}
+
+#openButton {
+  padding: 10px 15px;
+  font-size: 30px;
+  cursor: pointer;
+  width: 300px;
+}
+
+button {
+  
+    width: 100px;
+  
+}
