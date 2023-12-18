@@ -1,0 +1,55 @@
+/* styles.css */
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  
+  background: radial-gradient(circle, #fef69c, #080d39);
+
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+}
+
+#openButton {
+  padding: 10px 15px;
+  font-size: 30px;
+  cursor: pointer;
+  width: 300px;
+  border-radius: 50px; 
+  background: linear-gradient(90deg, black, #fef69c, #061062, #fef69c, black);background-size: 200% 200%;
+  animation: colorShift 5s infinite;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-clip: text;
+  
+
+}
+@keyframes colorShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+button {
+  
+    width: 100px;
+  
+}
