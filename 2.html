@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#007bff">
+    <title>Color Prank</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #444;
+            transition: color 0.5s;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.5s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Color Chaos is Here!</h1>
+
+    <script>
+        // Запускаем цветовую шутку при загрузке страницы
+        window.onload = function colorPrank() {
+            const body = document.body;
+            const title = document.querySelector('h1');
+            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+
+            setInterval(() => {
+                const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+                const randomTextColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+                
+                body.style.backgroundColor = randomColor;
+                body.style.color = randomTextColor;
+                title.style.color = randomTextColor;
+
+                themeColorMeta.setAttribute("content", randomColor);
+            }, 1000);
+        };
+
+        // Предотвращение перезагрузки страницы
+        window.onbeforeunload = function(event) {
+            event.preventDefault();
+            event.returnValue = ''; // Это покажет диалоговое окно при попытке покинуть страницу
+        };
+
+        // Блокировка кнопки "Назад" через манипуляцию историей
+        function blockBackButton() {
+            window.history.pushState(null, null, window.location.href);
+        }
+
+        window.onload = function() {
+            // Блокировка кнопки "Назад"
+            blockBackButton();
+            window.onpopstate = function () {
+                blockBackButton();
+            };
+
+            // Начинаем цветовую шутку
+            colorPrank();
+        };
+
+        // Чтобы постоянно обновлять историю и блокировать возврат
+        setInterval(() => {
+            window.history.pushState(null, null, window.location.href);
+        }, 1000);
+    </script>
+
+</body>
+</html>
