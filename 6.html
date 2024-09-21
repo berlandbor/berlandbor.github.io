@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000"> <!-- Цвет панели браузера -->
+    <title>Alarm Siren with Random Emojis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffffff;
+            overflow: hidden;
+        }
+        .emoji {
+            position: absolute;
+            will-change: transform;
+            transition: transform 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <h1>Сирена тревоги и бесконечные смайлики!</h1>
+
+    <script>
+        window.addEventListener('load', function() {
+            // Web Audio API Context
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            // Create an oscillator node (which generates sound)
+            const oscillator = audioContext.createOscillator();
+            
+            // Create a gain node to control the volume
+            const gainNode = audioContext.createGain();
+            
+            // Connect the oscillator to the gain node and the gain node to the audio context's destination (the speakers)
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            // Set the initial properties of the oscillator
+            oscillator.type = 'sine';  // Using 'sine' wave for smoother sound
+            
+            // Set the gain (volume)
+            gainNode.gain.setValueAtTime(0.2, audioContext.currentTime); // Volume is 20%
+            
+            // Start the oscillator
+            oscillator.start();
+            
+            // Function to create a siren effect by changing the frequency between high and low
+            let increasing = true;
+            setInterval(() => {
+                if (increasing) {
+                    oscillator.frequency.linearRampToValueAtTime(1000, audioContext.currentTime + 0.5); // Increase to 1000 Hz
+                } else {
+                    oscillator.frequency.linearRampToValueAtTime(400, audioContext.currentTime + 0.5);  // Decrease to 400 Hz
+                }
+                increasing = !increasing; // Toggle between increasing and decreasing frequency
+            }, 500); // Change frequency every 500 milliseconds (0.5 seconds)
+            
+            // Function to generate random colors
+            function randomColor() {
+                return `#${Math.floor(Math.random()*16777215).toString(16)}`;
+            }
+
+            // Function to change the background color and browser theme color
+            setInterval(() => {
+                const newColor = randomColor();
+                document.body.style.backgroundColor = newColor;
+                document.querySelector('meta[name="theme-color"]').setAttribute('content', newColor);
+            }, 1000); // Change color every second
+
+            // Function to add random emojis with random size and position
+            const emojis = ['😂', '🎉', '🤖', '🔥', '🚀', '😎', '💀', '👽'];
+            function addRandomEmoji() {
+                const emoji = document.createElement('div');
+                emoji.classList.add('emoji');
+                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                document.body.appendChild(emoji);
+
+                // Set random size and position
+                const size = Math.random() * 100 + 50; // Random size between 50px and 150px
+                emoji.style.fontSize = `${size}px`;
+
+                const randomX = Math.random() * window.innerWidth - size / 2;
+                const randomY = Math.random() * window.innerHeight - size / 2;
+                emoji.style.left = `${randomX}px`;
+                emoji.style.top = `${randomY}px`;
+
+                // Make emoji move slightly and change size over time
+                setInterval(() => {
+                    const newSize = Math.random() * 100 + 50;
+                    emoji.style.transform = `scale(${newSize / size})`;
+                    emoji.style.left = `${Math.random() * window.innerWidth - size / 2}px`;
+                    emoji.style.top = `${Math.random() * window.innerHeight - size / 2}px`;
+                }, 1000);
+            }
+
+            // Add new emojis every 0.5 seconds
+            setInterval(addRandomEmoji, 500);
+        });
+    </script>
+</body>
+</html>
